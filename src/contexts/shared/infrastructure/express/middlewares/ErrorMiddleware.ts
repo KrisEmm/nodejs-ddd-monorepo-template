@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 
 export interface ErrorMiddleware {
-  execute(req: Request, res: Response, next: NextFunction): void;
+  execute(err: Error, req: Request, res: Response, next: NextFunction): void;
 }

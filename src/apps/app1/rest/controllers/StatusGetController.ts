@@ -4,7 +4,7 @@ import { StatusNotOKError } from './StatusNotOKError';
 import { RestController } from 'krisemm/contexts/shared/infrastructure/express/controllers/RestController';
 
 export class StatusGetController extends RestController {
-  run(req: Request, res: Response, next: NextFunction): void {
+  execute(req: Request, res: Response, next: NextFunction): void {
     try {
       res.send('Hello World!');
     } catch (e) {
@@ -12,7 +12,7 @@ export class StatusGetController extends RestController {
     }
   }
 
-  errorsMapping(): Map<string, number> {
+  exceptionCodeMapping(): Map<string, number> {
     return new Map<string, number>([[StatusNotOKError.name, httpStatus.SERVICE_UNAVAILABLE]]);
   }
 }

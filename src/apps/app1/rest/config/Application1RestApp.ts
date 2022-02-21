@@ -1,12 +1,12 @@
 import express from 'express';
 import { glob } from 'glob';
 import { container } from '../services';
-import { Middleware } from 'krisemm/contexts/shared/infrastructure/express/middlewares/Middleware';
+import { ErrorMiddleware } from 'krisemm/contexts/shared/infrastructure/express/middlewares/Middleware';
 import morgan from 'morgan';
 import path from 'path';
 
 const app: express.Express = express();
-const errorHandlerMiddleware: Middleware = container.get('App.Shared.ErrorHandlerMiddleware');
+const errorHandlerMiddleware: ErrorMiddleware = container.get('App.Shared.ErrorHandlerMiddleware');
 const routesPaths: string[] = glob.sync(path.resolve(__dirname, '../routes/') + '/**/*.routes.{js,ts}');
 
 app.set('port', 8080);
@@ -21,6 +21,6 @@ routesPaths.map(routePath => {
   app.use('/', router);
 });
 
-app.use(errorHandlerMiddleware.run.bind(errorHandlerMiddleware));
+app.use(errorHandlerMiddleware.execute.bind(errorHandlerMiddleware));
 
 export const Application1RestApp: express.Express = app;
